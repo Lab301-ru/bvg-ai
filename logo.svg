@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" width="520" height="140" role="img" aria-label="BVG AI — Vladimir Kandinsky">
+  <title>BVG AI — Vladimir Kandinsky</title>
+  
+  <rect x="0" y="0" width="140" height="140" fill="#e6321f"></rect>
+  <g transform="translate(21 21) scale(0.98)">
+    <path d="M12 10 L35 10 L35 42 L65 10 L88 10 L50 50 L88 90 L65 90 L35 58 L35 90 L12 90 Z" fill="#f3efe7"></path>
+  </g>
+  
+  <g font-family="&#39;Unbounded&#39;,&#39;Arial Black&#39;,sans-serif" fill="#0d0d0d">
+    <text x="170" y="68" font-size="44" font-weight="900" letter-spacing="-2">BVG AI</text>
+    <text x="170" y="98" font-family="&#39;JetBrains Mono&#39;,&#39;Courier New&#39;,monospace" font-size="11" letter-spacing="3" font-weight="500" fill="#0d0d0d">VLADIMIR  KANDINSKY</text>
+  </g>
+  
+  <rect x="170" y="112" width="48" height="3" fill="#e6321f"></rect>
+  <rect x="222" y="112" width="180" height="3" fill="#0d0d0d"></rect>
+  
+  <circle cx="412" cy="113.5" r="4" fill="#e6321f"></circle>
+</svg>
