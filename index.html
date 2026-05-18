@@ -1,4 +1,1546 @@
 <!doctype html>
-<meta charset="utf-8">
-<meta http-equiv="refresh" content="0; url=./Владимир Кандинский.html">
-<script>location.replace('./Владимир Кандинский.html')</script>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>BVG AI — Владимир Кандинский | Цифровой художник</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Авторские цифровые картины на заказ. Персональные произведения и работы для интерьеров. Постмодерн в эпоху AI. Работаю по всему миру из Нью-Йорка." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800;900&family=Inter+Tight:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f3efe7;
+    --paper-2: #ebe6dc;
+    --ink: #0d0d0d;
+    --ink-2: #1a1a1a;
+    --red: #e6321f;
+    --red-deep: #c2271a;
+    --mute: #6b665d;
+    --rule: #0d0d0d;
+
+    --display: "Unbounded", "Arial Black", sans-serif;
+    --sans: "Inter Tight", system-ui, sans-serif;
+    --serif: "Cormorant Garamond", "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--paper); scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--red); color: var(--paper); }
+
+  /* Subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+  }
+
+  /* ──────────────────  CUSTOM CURSOR ────────────────── */
+  .cursor, .cursor-dot {
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 220ms cubic-bezier(.2,.7,.2,1), background 220ms ease, width 220ms ease, height 220ms ease, border-color 220ms ease, opacity 200ms ease;
+    will-change: transform;
+    mix-blend-mode: difference;
+  }
+  .cursor {
+    width: 38px; height: 38px;
+    border: 1.5px solid var(--paper);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: normal;
+  }
+  body.cursor-hover .cursor { width: 86px; height: 86px; border-color: var(--red); background: rgba(230,50,31,0.08); }
+  body.cursor-hover .cursor-dot { width: 0; height: 0; }
+  @media (hover: hover) and (pointer: fine) {
+    html, body { cursor: none; }
+    a, button, .hoverable { cursor: none; }
+  }
+  @media (hover: none), (pointer: coarse) {
+    .cursor, .cursor-dot { display: none; }
+  }
+
+  /* ──────────────────  GLOBAL ATOMS ────────────────── */
+  .container { max-width: 1480px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+  @media (max-width: 720px) { .container { padding: 0 22px; } }
+
+  .display { font-family: var(--display); font-weight: 800; letter-spacing: -0.04em; line-height: 0.86; text-transform: uppercase; }
+  .display-it { font-family: var(--serif); font-style: italic; font-weight: 300; letter-spacing: -0.01em; }
+  .mono { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .red { color: var(--red); }
+  .ink { color: var(--ink); }
+  .paper-bg { background: var(--paper); }
+
+  .rule { height: 1px; background: var(--ink); width: 100%; }
+  .rule-thin { height: 1px; background: var(--ink); opacity: 0.18; }
+
+  /* Section header (number + label) */
+  .sec-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 18px 0;
+    border-top: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 70px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .sec-head .n { font-weight: 700; }
+  .sec-head .label { text-align: center; }
+  .sec-head .meta { color: var(--mute); }
+
+  section { padding: 110px 0; position: relative; }
+  @media (max-width: 720px) { section { padding: 70px 0; } }
+
+  /* ──────────────────  NAV ────────────────── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 40px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    mix-blend-mode: difference;
+    color: var(--paper);
+  }
+  .nav .brand { display: flex; align-items: center; gap: 12px; }
+  .nav .brand .mono-mark {
+    width: 24px; height: 24px;
+    background: var(--red);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--paper);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 13px;
+    mix-blend-mode: normal;
+  }
+  .nav .links { display: flex; gap: 28px; }
+  .nav .links a { position: relative; padding: 4px 0; }
+  .nav .links a::after {
+    content: "";
+    position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: currentColor;
+    transition: width 400ms ease;
+  }
+  .nav .links a:hover::after { width: 100%; }
+  .nav .right { display: flex; align-items: center; gap: 22px; }
+  .nav .now { display: flex; align-items: center; gap: 8px; }
+  .nav .now .pulse {
+    width: 8px; height: 8px; background: var(--red);
+    border-radius: 50%;
+    animation: pulse 1.6s ease-in-out infinite;
+    mix-blend-mode: normal;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  @media (max-width: 880px) {
+    .nav .links { display: none; }
+    .nav { padding: 16px 22px; }
+  }
+
+  /* ── LOGO (outside nav to bypass mix-blend-mode: difference) ── */
+  .nav-logo {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 101;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo img { display: block; height: 32px; width: auto; }
+  @media (max-width: 880px) {
+    .nav-logo { padding: 10px 22px; }
+    .nav-logo img { height: 26px; }
+  }
+
+  /* ──────────────────  HERO ────────────────── */
+  .hero {
+    position: relative;
+    padding: 130px 0 0;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+  .hero-top {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .hero-top > div { padding-top: 4px; }
+  .ht-1 { grid-column: span 3; }
+  .ht-2 { grid-column: span 3; }
+  .ht-3 { grid-column: span 3; }
+  .ht-4 { grid-column: span 3; text-align: right; }
+  .ht-1 .k { display: block; color: var(--mute); margin-bottom: 6px; }
+
+  .hero-name {
+    position: relative;
+    margin-top: 10px;
+    isolation: isolate;
+  }
+  .hero-name .row {
+    overflow: hidden;
+    display: block;
+  }
+  .hero-name h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(40px, 9.4vw, 156px);
+    line-height: 0.86;
+    letter-spacing: -0.07em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+  .hero-name h1 .ln { display: block; }
+
+  /* Red square punch — anchored to viewport via .hero */
+  .hero-red {
+    position: absolute;
+    right: 4vw;
+    top: 22vh;
+    width: clamp(110px, 14vw, 220px);
+    height: clamp(110px, 14vw, 220px);
+    background: var(--red);
+    z-index: 1;
+    transform-origin: center;
+    animation: redIn 1400ms cubic-bezier(.2,.7,.2,1) 200ms forwards;
+  }
+  @keyframes redIn { from { transform: scale(0.92) rotate(-6deg); opacity: 0.7; } to { transform: scale(1) rotate(0); opacity: 1; } }
+
+  .hero-circle {
+    position: absolute;
+    right: 18vw;
+    bottom: 6vh;
+    width: clamp(120px, 16vw, 240px);
+    height: clamp(120px, 16vw, 240px);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    z-index: 1;
+    animation: circleIn 1400ms cubic-bezier(.2,.7,.2,1) 500ms forwards;
+  }
+  @keyframes circleIn { from { transform: scale(0.9); opacity: 0.6; } to { transform: scale(1); opacity: 1; } }
+
+  /* Diagonal slash */
+  .hero-slash {
+    position: absolute;
+    right: 0; top: 50%;
+    width: 56vw; height: 2px;
+    background: var(--ink);
+    transform: rotate(-16deg);
+    z-index: 1;
+    transform-origin: right center;
+    animation: slashIn 1200ms cubic-bezier(.2,.7,.2,1) 700ms forwards;
+  }
+  @keyframes slashIn { from { transform: rotate(-16deg) scaleX(0.85); opacity: 0.5; } to { transform: rotate(-16deg) scaleX(1); opacity: 1; } }
+
+  @media (max-width: 720px) {
+    .hero-red { right: 4vw; top: 16vh; width: 90px; height: 90px; }
+    .hero-circle { right: auto; left: 8vw; bottom: -30px; width: 110px; height: 110px; }
+    .hero-slash { display: none; }
+  }
+
+  .hero-sub-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    padding-top: 36px;
+    align-items: end;
+    border-top: 1.5px solid var(--ink);
+    margin-top: 18px;
+  }
+  .hero-tag {
+    grid-column: span 6;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(22px, 2.8vw, 38px);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    max-width: 22ch;
+  }
+  .hero-tag em { color: var(--red); font-style: italic; }
+  .hero-numbers {
+    grid-column: 8 / span 5;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .hero-num {
+    border-top: 1px solid var(--ink);
+    padding-top: 14px;
+  }
+  .hero-num .v {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(36px, 4vw, 60px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+  .hero-num .k {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin-top: 8px;
+  }
+  @media (max-width: 880px) {
+    .hero-tag, .hero-numbers { grid-column: span 12; }
+  }
+
+  /* CTAs */
+  .hero-ctas {
+    margin-top: 50px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 24px;
+    border: 1.5px solid var(--ink);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: transparent;
+    color: var(--ink);
+    transition: background 380ms cubic-bezier(.2,.7,.2,1), color 380ms ease, border-color 380ms ease, transform 280ms ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn .dot {
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    transition: transform 380ms ease, background 380ms ease;
+  }
+  .btn .arr {
+    display: inline-block;
+    width: 18px; height: 1.5px;
+    background: var(--ink);
+    position: relative;
+    transition: width 380ms ease, background 380ms ease;
+  }
+  .btn .arr::after {
+    content: "";
+    position: absolute; right: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-top: 1.5px solid var(--ink);
+    border-right: 1.5px solid var(--ink);
+    transform: rotate(45deg);
+    transition: border-color 380ms ease;
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.primary .arr, .btn.primary .arr::after { background: var(--paper); border-color: var(--paper); }
+  .btn.primary:hover { background: var(--red); border-color: var(--red); }
+  .btn:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+  .btn:hover .arr, .btn:hover .arr::after { background: var(--paper); border-color: var(--paper); }
+  .btn:hover .arr { width: 28px; }
+  .btn:hover .dot { transform: scale(1.4); background: var(--red); }
+
+  /* TICKER */
+  .ticker {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 0;
+    border-top: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(28px, 4vw, 56px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .ticker-track {
+    display: inline-flex;
+    gap: 48px;
+    animation: tick 38s linear infinite;
+    padding-left: 48px;
+  }
+  .ticker-track span { display: inline-flex; align-items: center; gap: 48px; }
+  .ticker-track .sep {
+    display: inline-block;
+    width: 18px; height: 18px;
+    background: var(--red);
+    border-radius: 50%;
+    transform: translateY(-4px);
+  }
+  @keyframes tick {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .ticker.alt { background: var(--paper); color: var(--ink); }
+  .ticker.alt .sep { background: var(--red); }
+
+  /* ──────────────────  MANIFESTO ────────────────── */
+  .manifesto {
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .quote-mark {
+    grid-column: 1 / span 2;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(80px, 12vw, 200px);
+    color: var(--red);
+    line-height: 0.8;
+  }
+  .quote-body {
+    grid-column: 3 / span 10;
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(38px, 6.6vw, 110px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .quote-body em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--red);
+    text-transform: lowercase;
+    letter-spacing: -0.005em;
+  }
+  .quote-sign {
+    grid-column: 3 / span 10;
+    margin-top: 50px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mute);
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  .quote-sign::before {
+    content: "";
+    width: 60px; height: 1px; background: var(--ink); display: inline-block;
+  }
+  @media (max-width: 880px) {
+    .quote-mark { grid-column: span 12; }
+    .quote-body, .quote-sign { grid-column: span 12; }
+  }
+
+  /* ──────────────────  PILLARS ────────────────── */
+  .pillars {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 130px 0;
+  }
+  .pillars .sec-head { color: var(--paper); border-color: var(--paper); }
+  .pillars .sec-head .meta { color: rgba(243,239,231,0.5); }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(243,239,231,0.18);
+  }
+  .pillar {
+    padding: 50px 30px 40px 0;
+    border-right: 1px solid rgba(243,239,231,0.18);
+    position: relative;
+    transition: padding 600ms cubic-bezier(.2,.7,.2,1);
+  }
+  .pillar:hover { padding-left: 28px; }
+  .pillar:last-child { border-right: none; padding-right: 0; }
+  .pillar:not(:first-child) { padding-left: 30px; }
+  .pillar:not(:first-child):hover { padding-left: 58px; }
+  .pillar .num {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(72px, 9vw, 140px);
+    color: var(--red);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+  }
+  .pillar .ttl {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(26px, 2.4vw, 34px);
+    text-transform: uppercase;
+    margin-top: 28px;
+    letter-spacing: -0.02em;
+  }
+  .pillar .sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(243,239,231,0.55);
+    margin-top: 6px;
+  }
+  .pillar p {
+    margin-top: 26px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(243,239,231,0.78);
+    max-width: 32ch;
+  }
+  @media (max-width: 880px) {
+    .pillars-grid { grid-template-columns: 1fr; }
+    .pillar { border-right: none; border-bottom: 1px solid rgba(243,239,231,0.18); padding: 36px 0; }
+    .pillar:not(:first-child) { padding-left: 0; }
+    .pillar:not(:first-child):hover, .pillar:hover { padding-left: 16px; }
+  }
+
+  /* ──────────────────  WORKS ────────────────── */
+  .works { background: var(--paper); }
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 100px;
+    gap: 18px;
+  }
+  .work {
+    position: relative;
+    overflow: hidden;
+    background: var(--paper-2);
+    border: 1.5px solid var(--ink);
+    cursor: pointer;
+  }
+  .work .canvas {
+    position: absolute; inset: 0;
+    transition: transform 1200ms cubic-bezier(.2,.7,.2,1), filter 600ms ease;
+  }
+  .work:hover .canvas { transform: scale(1.06); }
+  .work .meta {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 18px 22px;
+    background: linear-gradient(180deg, rgba(13,13,13,0) 0%, rgba(13,13,13,0.85) 70%);
+    color: var(--paper);
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 12px;
+    transform: translateY(40%);
+    opacity: 0;
+    transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 600ms ease;
+  }
+  .work:hover .meta { transform: translateY(0); opacity: 1; }
+  .work .meta .ttl {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .work .meta .yr {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(243,239,231,0.7);
+  }
+  .work .num {
+    position: absolute; top: 16px; left: 18px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    z-index: 2;
+    background: var(--paper);
+    padding: 4px 8px;
+    border: 1px solid var(--ink);
+  }
+  .work .stamp {
+    position: absolute; top: 16px; right: 18px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  .work .stamp .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: var(--red);
+    border-radius: 50%;
+    margin-right: 6px;
+    transform: translateY(-1px);
+  }
+
+  /* Symmetric 2-row layout */
+  .w1 { grid-column: span 7; grid-row: span 5; }
+  .w2 { grid-column: span 5; grid-row: span 5; }
+  .w3 { grid-column: span 4; grid-row: span 5; }
+  .w4 { grid-column: span 4; grid-row: span 5; }
+  .w5 { grid-column: span 4; grid-row: span 5; }
+  @media (max-width: 880px) {
+    .works-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+    .w1, .w2, .w3, .w4, .w5, .w6 { grid-column: span 1; grid-row: span 2; }
+    .w1 { grid-column: span 2; }
+  }
+
+  .works-cta {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    border-top: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .works-cta p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(18px, 2vw, 24px);
+    max-width: 48ch;
+  }
+
+  /* ──────────────────  SERVICES ────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .svc {
+    border: 1.5px solid var(--ink);
+    padding: 36px 32px 32px;
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+    transition: background 500ms ease, color 500ms ease;
+  }
+  .svc::before {
+    content: "";
+    position: absolute;
+    left: -10%; right: -10%;
+    bottom: -120%;
+    height: 200%;
+    background: var(--ink);
+    transform: skewY(-8deg);
+    transition: bottom 700ms cubic-bezier(.5,.0,.0,1);
+    z-index: 0;
+  }
+  .svc:hover::before { bottom: -50%; }
+  .svc:hover { color: var(--paper); }
+  .svc > * { position: relative; z-index: 1; }
+  .svc .row1 {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: inherit;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 14px;
+    margin-bottom: 28px;
+  }
+  .svc .row1 .red-dot {
+    width: 10px; height: 10px;
+    background: var(--red);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    transform: translateY(1px);
+  }
+  .svc .name {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(36px, 4.4vw, 64px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .svc .name em { font-family: var(--serif); font-weight: 300; font-style: italic; color: var(--red); text-transform: lowercase; letter-spacing: -0.005em; }
+  .svc .desc {
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 48ch;
+    color: inherit;
+    margin-bottom: 36px;
+  }
+  .svc .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid currentColor;
+    padding-top: 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .svc .price {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  @media (max-width: 880px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ──────────────────  ABOUT ────────────────── */
+  .about { background: var(--paper); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .portrait {
+    position: relative;
+    aspect-ratio: 4/5;
+    background: var(--ink);
+    overflow: hidden;
+    border: 1.5px solid var(--ink);
+  }
+  .portrait .geo {
+    position: absolute; inset: 0;
+  }
+  .portrait .geo .r1 { position: absolute; left: 14%; top: 12%; width: 56%; height: 28%; background: var(--red); }
+  .portrait .geo .c1 { position: absolute; right: 10%; bottom: 18%; width: 38%; aspect-ratio: 1; border-radius: 50%; border: 2px solid var(--paper); }
+  .portrait .geo .d1 { position: absolute; left: 8%; bottom: 8%; width: 70%; height: 2px; background: var(--paper); transform-origin: left center; transform: rotate(-18deg); }
+  .portrait .geo .mono { position: absolute; left: 18px; top: 18px; color: var(--paper); }
+  .portrait .geo .vk {
+    position: absolute; right: 18px; bottom: 18px;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(46px, 7vw, 86px);
+    color: var(--paper);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+  }
+  .portrait .geo .vk small {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    margin-top: 10px;
+  }
+
+  .about-body h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(36px, 4.6vw, 64px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    text-wrap: balance;
+  }
+  .about-body h3 em { font-family: var(--serif); font-weight: 300; font-style: italic; color: var(--red); text-transform: lowercase; letter-spacing: -0.005em; }
+
+  .facts {
+    counter-reset: f;
+    border-top: 1.5px solid var(--ink);
+  }
+  .fact {
+    counter-increment: f;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 22px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(13,13,13,0.15);
+    align-items: baseline;
+  }
+  .fact::before {
+    content: counter(f, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .fact .t {
+    font-family: var(--display);
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+  }
+  .fact .t b {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-right: 10px;
+  }
+  .fact.highlight .t b { color: var(--red); }
+  .fact .t i { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--red); }
+
+  /* ──────────────────  CONTACT ────────────────── */
+  .contact {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 140px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact::after {
+    content: "ВК";
+    position: absolute;
+    right: -3%; top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(280px, 50vw, 760px);
+    color: var(--red);
+    opacity: 0.95;
+    line-height: 0.78;
+    letter-spacing: -0.07em;
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: normal;
+  }
+  .contact .container { position: relative; z-index: 1; }
+  .contact .sec-head { color: var(--paper); border-color: var(--paper); margin-bottom: 50px; }
+  .contact .sec-head .meta { color: rgba(243,239,231,0.55); }
+  .contact-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 26px;
+  }
+  .contact-h {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(64px, 12vw, 220px);
+    line-height: 0.84;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    max-width: 14ch;
+  }
+  .contact-h em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--red);
+    text-transform: lowercase;
+    letter-spacing: -0.005em;
+  }
+  .contact-line {
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 22px 0;
+    border-top: 1.5px solid rgba(243,239,231,0.3);
+    border-bottom: 1.5px solid rgba(243,239,231,0.3);
+  }
+  .contact-line .ch {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 32px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .contact-line .ch em { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--red); text-transform: lowercase; }
+  .contact-line .ch a:hover { color: var(--red); }
+  .contact-line .sep {
+    width: 1px; height: 24px; background: rgba(243,239,231,0.3); display: inline-block;
+  }
+
+  .contact-cta {
+    margin-top: 60px;
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .contact-cta .btn { border-color: var(--paper); color: var(--paper); }
+  .contact-cta .btn .arr, .contact-cta .btn .arr::after { background: var(--paper); border-color: var(--paper); }
+  .contact-cta .btn:hover { background: var(--red); border-color: var(--red); color: var(--paper); }
+  .contact-cta .btn.primary { background: var(--red); border-color: var(--red); }
+  .contact-cta .btn.primary:hover { background: var(--paper); color: var(--ink); }
+  .contact-cta .btn.primary:hover .arr, .contact-cta .btn.primary:hover .arr::after { background: var(--ink); border-color: var(--ink); }
+
+  /* ──────────────────  FOOTER ────────────────── */
+  footer {
+    background: var(--ink);
+    color: rgba(243,239,231,0.65);
+    padding: 30px 0 60px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .foot-top {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 1fr;
+    gap: 32px;
+    padding: 40px 0;
+    border-top: 1px solid rgba(243,239,231,0.18);
+    align-items: center;
+  }
+  .foot-tag {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 30px);
+    color: var(--paper);
+    letter-spacing: -0.005em;
+    text-transform: none;
+    line-height: 1.3;
+    text-align: center;
+  }
+  .foot-tag b { color: var(--red); font-weight: 300; }
+  .foot-bot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(243,239,231,0.18);
+  }
+  .foot-right { display: flex; gap: 24px; align-items: center; }
+  .foot-mark { display: flex; align-items: center; gap: 14px; }
+  .foot-mark .mono-mark {
+    width: 24px; height: 24px;
+    background: var(--red);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-weight: 900;
+    color: var(--paper);
+    font-size: 13px;
+  }
+  @media (max-width: 880px) {
+    .foot-top { grid-template-columns: 1fr; text-align: center; }
+    .foot-mark, .foot-right { justify-content: center; }
+  }
+
+  /* ──────────────────  TOOLS ────────────────── */
+  .tools { background: var(--paper-2); }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1.5px solid var(--ink);
+    border-left: 1.5px solid var(--ink);
+  }
+  .tool-cat {
+    padding: 28px 22px 32px;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    background: var(--paper);
+  }
+  .tool-cat.accent {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .tool-cat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(13,13,13,0.15);
+  }
+  .tool-cat.accent .tool-cat-label {
+    border-bottom-color: rgba(243,239,231,0.15);
+  }
+  .tool-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .tool-list li {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tool-cat.accent .tool-list li { color: rgba(243,239,231,0.85); }
+  .tool-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--red);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .tool-main-name {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(24px, 2.6vw, 38px);
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    line-height: 0.92;
+    margin-top: 6px;
+    color: var(--paper);
+  }
+  .tool-main-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: rgba(243,239,231,0.45);
+    margin-top: 18px;
+    text-transform: uppercase;
+  }
+  @media (max-width: 880px) {
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .tool-cat.accent { grid-column: span 2; }
+  }
+  @media (max-width: 480px) {
+    .tools-grid { grid-template-columns: 1fr; }
+    .tool-cat.accent { grid-column: span 1; }
+  }
+
+  /* ──────────────────  REVEAL ────────────────── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1100ms cubic-bezier(.2,.7,.2,1), transform 1100ms cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal.d1 { transition-delay: 100ms; } .reveal.d2 { transition-delay: 200ms; } .reveal.d3 { transition-delay: 300ms; } .reveal.d4 { transition-delay: 400ms; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-dot" id="curDot"></div>
+
+<!-- LOGO (separate from nav to preserve natural colors) -->
+<a href="#top" class="nav-logo hoverable">
+  <img src="logo.svg" alt="BVG AI">
+</a>
+
+<!-- NAV -->
+<nav class="nav">
+  <div style="flex:1"></div>
+  <div class="links">
+    <a href="#works" class="hoverable">— Работы</a>
+    <a href="#services" class="hoverable">— Услуги</a>
+    <a href="#about" class="hoverable">— О себе</a>
+    <a href="#contact" class="hoverable">— Контакт</a>
+  </div>
+  <div class="right">
+    <div class="now"><span class="pulse"></span><span>NY · open for work</span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <span class="hero-red" aria-hidden="true"></span>
+  <span class="hero-slash" aria-hidden="true"></span>
+  <span class="hero-circle" aria-hidden="true"></span>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-top">
+        <div class="ht-1"><span class="k">№ 2026 / 001</span>Портфолио</div>
+        <div class="ht-2"><span class="k" style="color:var(--mute);display:block;margin-bottom:6px;">Локация</span>Старый Оскол → New York</div>
+        <div class="ht-3"><span class="k" style="color:var(--mute);display:block;margin-bottom:6px;">Метод</span>Постмодернизм · Nano Banana Pro</div>
+        <div class="ht-4"><span class="k" style="color:var(--mute);display:block;margin-bottom:6px;">Доступен</span>Удалённо, мир</div>
+      </div>
+
+      <div class="hero-name">
+        <h1>
+          <span class="row"><span class="ln">Владимир</span></span>
+          <span class="row"><span class="ln d2">Кандинский<span style="color:var(--red)">.</span></span></span>
+        </h1>
+      </div>
+
+      <div class="hero-sub-row">
+        <div class="hero-tag">
+          BVG&nbsp;AI. Создаю&nbsp;<em>персональные картины</em> и интерьерные полотна — через нейросеть и руку.
+        </div>
+        <div class="hero-numbers">
+          <div class="hero-num"><div class="v">26'</div><div class="k">Запуск</div></div>
+          <div class="hero-num"><div class="v">2</div><div class="k">Языка</div></div>
+          <div class="hero-num"><div class="v">∞</div><div class="k">Композиций</div></div>
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <a class="btn primary hoverable" href="#works"><span class="dot"></span><span>Смотреть работы</span><span class="arr"></span></a>
+        <a class="btn hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener"><span>Telegram</span><span class="arr"></span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Постмодернизм<span class="sep"></span>Nano&nbsp;Banana&nbsp;Pro<span class="sep"></span>Old&nbsp;Oskol&nbsp;→&nbsp;NY<span class="sep"></span>Шахматы&nbsp;и&nbsp;нейросети<span class="sep"></span>Картины&nbsp;для&nbsp;интерьеров<span class="sep"></span>Самоучка<span class="sep"></span></span>
+    <span>Постмодернизм<span class="sep"></span>Nano&nbsp;Banana&nbsp;Pro<span class="sep"></span>Old&nbsp;Oskol&nbsp;→&nbsp;NY<span class="sep"></span>Шахматы&nbsp;и&nbsp;нейросети<span class="sep"></span>Картины&nbsp;для&nbsp;интерьеров<span class="sep"></span>Самоучка<span class="sep"></span></span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="n">№ 01</span>
+      <span class="label">— Манифест —</span>
+      <span class="meta">2026</span>
+    </div>
+    <div class="manifesto-grid">
+      <div class="quote-mark reveal">“</div>
+      <h2 class="quote-body reveal d1">Нет лучше&nbsp;<em>мечты,</em><br />чем та, которая <em>сбывается.</em></h2>
+      <div class="quote-sign reveal d2">Владимир Кандинский · digital · 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="n">№ 02</span>
+      <span class="label">— Три кита —</span>
+      <span class="meta">Spirit · Art · Game</span>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar reveal d1">
+        <div class="num">01</div>
+        <div class="ttl">Дух</div>
+        <div class="sub">Spirit · 2026</div>
+        <p>Внутренний центр, без которого пустая красота — просто шум. Каждое полотно сначала рождается в голове, потом — в алгоритме.</p>
+      </div>
+      <div class="pillar reveal d2">
+        <div class="num">02</div>
+        <div class="ttl">Искусство</div>
+        <div class="sub">Art · digital</div>
+        <p>Постмодернизм через нейросеть. Цитата, ирония, цвет и жёсткая композиция. Картина как разговор, а не украшение.</p>
+      </div>
+      <div class="pillar reveal d3">
+        <div class="num">03</div>
+        <div class="ttl">Игра</div>
+        <div class="sub">Game · ранее шахматы</div>
+        <p>От бывшего мастера спорта по шахматам — к онлайн-играм. Композиция, расчёт на 12 ходов вперёд, удовольствие от партии.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER ALT -->
+<div class="ticker alt" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Картины&nbsp;на&nbsp;заказ<span class="sep"></span>Интерьеры&nbsp;NY&nbsp;·&nbsp;MSK&nbsp;·&nbsp;LDN<span class="sep"></span>Постмодернизм<span class="sep"></span>Цифровое&nbsp;полотно<span class="sep"></span>Свяжитесь<span class="sep"></span></span>
+    <span>Картины&nbsp;на&nbsp;заказ<span class="sep"></span>Интерьеры&nbsp;NY&nbsp;·&nbsp;MSK&nbsp;·&nbsp;LDN<span class="sep"></span>Постмодернизм<span class="sep"></span>Цифровое&nbsp;полотно<span class="sep"></span>Свяжитесь<span class="sep"></span></span>
+  </div>
+</div>
+
+<!-- WORKS -->
+<section class="works" id="works">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="n">№ 03</span>
+      <span class="label">— Избранные работы —</span>
+      <span class="meta">2025 — 2026</span>
+    </div>
+
+    <div class="works-grid">
+      <!-- 01 Composition Red on Black -->
+      <a class="work w1 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">01 / 05</span>
+        <span class="stamp"><span class="dot"></span>Available</span>
+        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
+        </div>
+        <div class="meta">
+          <div class="ttl">Композиция в красном</div>
+          <div class="yr">2026 · 80×100 cm</div>
+        </div>
+      </a>
+
+      <!-- 02 Diagonal grid -->
+      <a class="work w2 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">02 / 05</span>
+        <span class="stamp"><span class="dot"></span>Available</span>
+        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
+        </div>
+        <div class="meta">
+          <div class="ttl">Сетка №7</div>
+          <div class="yr">2026 · digital print</div>
+        </div>
+      </a>
+
+      <!-- 03 Sun typography -->
+      <a class="work w3 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">03 / 05</span>
+        <span class="stamp"><span class="dot"></span>Available</span>
+        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
+        </div>
+        <div class="meta">
+          <div class="ttl">Манифест «ДА»</div>
+          <div class="yr">2025 · 100×100 cm</div>
+        </div>
+      </a>
+
+      <!-- 04 Stairs -->
+      <a class="work w4 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">04 / 05</span>
+        <span class="stamp"><span class="dot"></span>Sold</span>
+        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
+        </div>
+        <div class="meta">
+          <div class="ttl">Лестница</div>
+          <div class="yr">2025 · sold private</div>
+        </div>
+      </a>
+
+      <!-- 05 Vertical bars -->
+      <a class="work w5 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">05 / 05</span>
+        <span class="stamp"><span class="dot"></span>Available</span>
+        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
+        </div>
+        <div class="meta">
+          <div class="ttl">Партитура</div>
+          <div class="yr">2025 · 60×120 cm</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="works-cta reveal">
+      <p>Все новые работы публикую в Telegram-канале. Если что-то откликнулось — напишите, расскажу подробности и условия.</p>
+      <a class="btn hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener"><span class="dot"></span><span>Канал в Telegram</span><span class="arr"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="n">№ 04</span>
+      <span class="label">— Что я делаю —</span>
+      <span class="meta">2 направления</span>
+    </div>
+    <div class="services-grid">
+      <article class="svc reveal d1 hoverable">
+        <div class="row1"><span><span class="red-dot"></span>Услуга / 01</span><span>На заказ</span></div>
+        <div class="name">Персональные<br /><em>цифровые картины</em></div>
+        <div class="desc">Один образ — один человек. Брифинг, концепция, серия эскизов, доводка. Работа печатается в формате на ваш выбор: холст, металл, акрил.</div>
+        <div class="foot">
+          <span class="price">от $500</span>
+          <span>7 — 14 дней</span>
+        </div>
+      </article>
+      <article class="svc reveal d2 hoverable">
+        <div class="row1"><span><span class="red-dot"></span>Услуга / 02</span><span>Под пространство</span></div>
+        <div class="name">Полотна для<br /><em>интерьеров</em></div>
+        <div class="desc">Серии и одиночные работы, подобранные под комнату — пропорции стены, свет, цвет мебели. От квартир в NY до домов в подмосковье. Удалённо.</div>
+        <div class="foot">
+          <span class="price">от $800</span>
+          <span>2 — 4 недели</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="n">№ 05</span>
+      <span class="label">— Обо мне —</span>
+      <span class="meta">VK · est. 2025</span>
+    </div>
+    <div class="about-grid">
+      <div class="portrait reveal">
+        <div class="geo">
+          <span class="r1"></span>
+          <span class="c1"></span>
+          <span class="d1"></span>
+          <div class="mono mono">— Self-portrait №01<br />Composition, 2026</div>
+          <div class="vk">ВК<small>Vladimir Kandinsky</small></div>
+        </div>
+      </div>
+      <div class="about-body reveal d1">
+        <h3>Только зашёл — и уже <em>остался.</em></h3>
+        <div class="facts">
+          <div class="fact"><div class="t"><b>Из</b>Старого Оскола. Сейчас — Нью-Йорк.</div></div>
+          <div class="fact"><div class="t"><b>Языки</b>Русский. Английский.</div></div>
+          <div class="fact"><div class="t"><b>Метод</b>Самоучка. Начинал с графических редакторов, в прошлом году ушёл в нейросеть. Работаю на Nano Banana Pro.</div></div>
+          <div class="fact"><div class="t"><b>Стиль</b>Постмодернизм. Цитата, ирония, чистый цвет, жёсткая композиция.</div></div>
+          <div class="fact highlight"><div class="t"><b>Шахматы</b>Бывший мастер спорта. <i>Сыграл вничью с гроссмейстером Карповым.</i> Сегодня — онлайн-партии и композиция на холсте.</div></div>
+          <div class="fact"><div class="t"><b>Три кита</b>Дух · искусство · игра. На этом держится мир.</div></div>
+          <div class="fact"><div class="t"><b>Формат</b>Удалённо, по всему миру. Для всех.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools" id="tools">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="n">№ 05.2</span>
+      <span class="label">— Инструментарий —</span>
+      <span class="meta">AI · Design · 3D · Motion</span>
+    </div>
+    <div class="tools-grid">
+
+      <div class="tool-cat reveal">
+        <div class="tool-cat-label">Генерация AI-изображений</div>
+        <ul class="tool-list">
+          <li>Midjourney</li>
+          <li>ChatGPT / OpenAI Images</li>
+          <li>Stable Diffusion</li>
+          <li>Flux AI</li>
+          <li>Leonardo AI</li>
+          <li>Adobe Firefly</li>
+        </ul>
+      </div>
+
+      <div class="tool-cat reveal d1">
+        <div class="tool-cat-label">UI / UX / веб-дизайн</div>
+        <ul class="tool-list">
+          <li>Figma</li>
+          <li>Framer</li>
+          <li>Webflow</li>
+        </ul>
+      </div>
+
+      <div class="tool-cat reveal d2">
+        <div class="tool-cat-label">Обработка и digital painting</div>
+        <ul class="tool-list">
+          <li>Adobe Photoshop</li>
+          <li>Affinity Photo</li>
+          <li>Procreate</li>
+          <li>Krita</li>
+        </ul>
+      </div>
+
+      <div class="tool-cat reveal d3">
+        <div class="tool-cat-label">Видео и motion design</div>
+        <ul class="tool-list">
+          <li>Runway</li>
+          <li>Pika</li>
+          <li>Luma AI</li>
+          <li>Adobe After Effects</li>
+        </ul>
+      </div>
+
+      <div class="tool-cat reveal">
+        <div class="tool-cat-label">3D и CGI</div>
+        <ul class="tool-list">
+          <li>Blender</li>
+          <li>Cinema 4D</li>
+          <li>Spline</li>
+        </ul>
+      </div>
+
+      <div class="tool-cat reveal d1">
+        <div class="tool-cat-label">Апскейл и улучшение качества</div>
+        <ul class="tool-list">
+          <li>Topaz Labs</li>
+          <li>Magnific AI</li>
+        </ul>
+      </div>
+
+      <div class="tool-cat accent reveal d2" style="grid-column: span 2;">
+        <div class="tool-cat-label">Основной инструмент</div>
+        <div class="tool-main-name">Nano<br>Banana Pro</div>
+        <div class="tool-main-sub">Мой главный AI-инструмент для создания работ</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHESS -->
+<section class="chess" id="chess" style="background:var(--ink); color:var(--paper); padding:110px 0;">
+  <div class="container">
+    <div class="sec-head reveal" style="color:var(--paper); border-color:var(--paper);">
+      <span class="n">№ 05.5</span>
+      <span class="label">— Шахматная история —</span>
+      <span class="meta" style="color:rgba(243,239,231,0.5);">Karpov · Draw</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 2fr; gap:60px; align-items:start;">
+      <div class="reveal" style="position:relative;">
+        <svg viewBox="0 0 240 240" width="100%" style="max-width:240px; border:1.5px solid rgba(243,239,231,0.2);">
+          <rect width="240" height="240" fill="#f3efe7"/>
+          <g fill="#0d0d0d">
+            <rect x="0"   y="0"   width="60" height="60"/>
+            <rect x="120" y="0"   width="60" height="60"/>
+            <rect x="60"  y="60"  width="60" height="60"/>
+            <rect x="180" y="60"  width="60" height="60"/>
+            <rect x="0"   y="120" width="60" height="60"/>
+            <rect x="120" y="120" width="60" height="60"/>
+            <rect x="60"  y="180" width="60" height="60"/>
+            <rect x="180" y="180" width="60" height="60"/>
+          </g>
+          <circle cx="90" cy="90" r="22" fill="#e6321f"/>
+          <circle cx="150" cy="150" r="22" fill="#e6321f"/>
+        </svg>
+        <div class="mono" style="margin-top:16px; color:rgba(243,239,231,0.45);">e2 — e4</div>
+      </div>
+      <div class="reveal d1">
+        <h3 style="font-family:var(--display); font-weight:800; font-size:clamp(36px,4.6vw,64px); line-height:0.95; letter-spacing:-0.035em; text-transform:uppercase; margin-bottom:32px;">
+          Мастер спорта.<br/>
+          <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; color:var(--red); text-transform:lowercase; letter-spacing:-0.005em; font-size:1.1em;">Ничья с Карповым.</span>
+        </h3>
+        <p style="font-size:16px; line-height:1.75; color:rgba(243,239,231,0.78); max-width:52ch; margin-bottom:28px;">
+          Бывший мастер спорта по шахматам. Главное достижение — партия вничью с Анатолием Карповым, 12-м чемпионом мира. Это до сих пор одно из главных воспоминаний моей жизни.
+        </p>
+        <p style="font-size:16px; line-height:1.75; color:rgba(243,239,231,0.78); max-width:52ch;">
+          Шахматы научили видеть структуру там, где другие видят хаос. Думать на много ходов вперёд. Чувствовать гармонию композиции. Этот же принцип я переношу в цифровое искусство — каждая работа это партия, каждая партия это победа красоты.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="n">№ 06</span>
+      <span class="label">— Контакт —</span>
+      <span class="meta">Ответ в течение дня</span>
+    </div>
+    <div class="contact-eyebrow reveal">— Готовы начать —</div>
+    <h2 class="contact-h reveal d1">Пишите.<br />Сделаем&nbsp;<em>невозможное.</em></h2>
+    <div class="contact-line reveal d2">
+      <span class="ch"><a class="hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">Telegram · канал</a></span>
+      <span class="sep"></span>
+      <span class="ch"><a class="hoverable" href="mailto:vladimirbabadzanov767@gmail.com">vladimirbabadzanov767@gmail.com</a></span>
+      <span class="sep"></span>
+      <span class="ch" style="font-size:clamp(14px,1.6vw,22px); color:rgba(243,239,231,0.55);">Нью-Йорк · работаю удалённо со всем миром</span>
+    </div>
+    <div class="contact-cta reveal d3">
+      <a class="btn primary hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener"><span class="dot" style="background:var(--paper)"></span><span>Написать в Telegram</span><span class="arr"></span></a>
+      <a class="btn hoverable" href="#works"><span>Смотреть работы</span><span class="arr"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-mark">
+        <span class="mono-mark">К</span>
+        <span>Vladimir Kandinsky · Digital · 2026</span>
+      </div>
+      <div class="foot-tag">
+        Форма следует функции. <b>Функция следует красоте.</b>
+      </div>
+      <div class="foot-right" style="justify-content:flex-end">
+        <a class="hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">Telegram</a>
+        <a class="hoverable" href="#top">↑ Наверх</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 BVG AI · Владимир Кандинский · New York</div>
+      <div style="display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
+        <a href="https://lab301.ru" target="_blank" rel="noopener" style="color:rgba(243,239,231,0.35); letter-spacing:0.12em; font-size:10px; transition:color 300ms ease;" onmouseover="this.style.color='rgba(243,239,231,0.7)'" onmouseout="this.style.color='rgba(243,239,231,0.35)'">Сайт создан в LAB301 Digital Studio</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── CUSTOM CURSOR ───
+  const cur = document.getElementById('cur');
+  const dot = document.getElementById('curDot');
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let cx = mx, cy = my;
+  window.addEventListener('pointermove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  });
+  function raf() {
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    cur.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+    requestAnimationFrame(raf);
+  }
+  raf();
+  document.querySelectorAll('a, button, .hoverable').forEach(el => {
+    el.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover'));
+  });
+
+  // ─── REVEAL ON SCROLL ───
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
