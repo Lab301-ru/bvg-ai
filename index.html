@@ -643,9 +643,11 @@
   .work .meta .ttl {
     font-family: var(--display);
     font-weight: 700;
-    font-size: 18px;
+    font-size: clamp(12px, 3.4vw, 18px);
     text-transform: uppercase;
     letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
   .work .meta .yr {
     font-family: var(--mono);
@@ -766,11 +768,12 @@
   .svc .name {
     font-family: var(--display);
     font-weight: 800;
-    font-size: clamp(36px, 4.4vw, 64px);
+    font-size: clamp(28px, 3.6vw, 52px);
     line-height: 0.92;
     letter-spacing: -0.035em;
     text-transform: uppercase;
     margin-bottom: 28px;
+    overflow-wrap: break-word;
   }
   .svc .name em { font-family: var(--serif); font-weight: 300; font-style: italic; color: var(--red); text-transform: lowercase; letter-spacing: -0.005em; }
   .svc .desc {
