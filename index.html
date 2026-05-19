@@ -40,10 +40,31 @@
 <meta name="twitter:description" content="Авторские цифровые картины на заказ. Постмодерн в эпоху AI. Нью-Йорк." />
 <meta name="twitter:image" content="https://v-kandinskiy.ru/work-03.avif" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+<!-- Preload LCP image -->
+<link rel="preload" as="image" href="work-03.avif" type="image/avif" fetchpriority="high" />
+
+<!-- Fonts — non-render-blocking -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800;900&family=Inter+Tight:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800;900&family=Inter+Tight:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800;900&family=Inter+Tight:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
 <style>
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 9999;
+    background: var(--ink, #0d0d0d);
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 0 0 4px 4px;
+    text-decoration: none;
+    transition: top 200ms ease;
+  }
+  .skip-link:focus { top: 0; }
+
   :root {
     --paper: #f3efe7;
     --paper-2: #ebe6dc;
@@ -51,7 +72,7 @@
     --ink-2: #1a1a1a;
     --red: #e6321f;
     --red-deep: #c2271a;
-    --mute: #6b665d;
+    --mute: #5a554d;
     --rule: #0d0d0d;
 
     --display: "Unbounded", "Arial Black", sans-serif;
@@ -1143,27 +1164,32 @@
 </head>
 <body>
 
-<div class="cursor" id="cur"></div>
-<div class="cursor-dot" id="curDot"></div>
+<!-- Skip navigation for screen readers -->
+<a href="#main-content" class="skip-link">Перейти к содержимому</a>
+
+<div class="cursor" id="cur" aria-hidden="true"></div>
+<div class="cursor-dot" id="curDot" aria-hidden="true"></div>
 
 <!-- LOGO (separate from nav to preserve natural colors) -->
-<a href="/" class="nav-logo hoverable" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-  <img src="logo.svg" alt="BVG AI">
+<a href="/" class="nav-logo hoverable" aria-label="BVG AI — на главную" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+  <img src="logo.svg" alt="BVG AI — Владимир Кандинский" width="520" height="140">
 </a>
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" aria-label="Основная навигация">
   <div style="flex:1"></div>
   <div class="links">
-    <a href="#works" class="hoverable">— Работы</a>
-    <a href="#services" class="hoverable">— Услуги</a>
-    <a href="#about" class="hoverable">— О себе</a>
-    <a href="#contact" class="hoverable">— Контакт</a>
+    <a href="#works" class="hoverable" aria-label="Работы">— Работы</a>
+    <a href="#services" class="hoverable" aria-label="Услуги">— Услуги</a>
+    <a href="#about" class="hoverable" aria-label="О себе">— О себе</a>
+    <a href="#contact" class="hoverable" aria-label="Контакт">— Контакт</a>
   </div>
   <div class="right">
-    <div class="now"><span class="pulse"></span><span>NY · open for work</span></div>
+    <div class="now" aria-label="Статус: открыт для работы, Нью-Йорк"><span class="pulse" aria-hidden="true"></span><span>NY · open for work</span></div>
   </div>
 </nav>
+
+<main id="main-content">
 
 <!-- HERO -->
 <header class="hero" id="top">
@@ -1283,7 +1309,7 @@
         <span class="num">01 / 05</span>
         <span class="stamp"><span class="dot"></span>Available</span>
         <div class="canvas">
-          <img src="work-03.avif" alt="Манифест «ДА»" loading="eager" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+          <img src="work-03.avif" alt="Манифест «ДА» — цифровая картина" width="1024" height="1024" loading="eager" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
         </div>
         <div class="meta">
           <div class="ttl">Манифест «ДА»</div>
@@ -1296,7 +1322,7 @@
         <span class="num">02 / 05</span>
         <span class="stamp"><span class="dot"></span>Available</span>
         <div class="canvas">
-          <img src="work-05.avif" alt="Партитура" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+          <img src="work-05.avif" alt="Партитура — цифровая картина" width="1024" height="1024" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
         </div>
         <div class="meta">
           <div class="ttl">Партитура</div>
@@ -1309,7 +1335,7 @@
         <span class="num">03 / 05</span>
         <span class="stamp"><span class="dot"></span>Available</span>
         <div class="canvas">
-          <img src="work-02.avif" alt="Сетка №7" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="work-02.avif" alt="Сетка №7 — цифровая картина" width="1024" height="1024" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="meta">
           <div class="ttl">Сетка №7</div>
@@ -1322,7 +1348,7 @@
         <span class="num">04 / 05</span>
         <span class="stamp"><span class="dot"></span>Available</span>
         <div class="canvas">
-          <img src="work-01.avif" alt="Композиция в красном" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:bottom center;display:block;">
+          <img src="work-01.avif" alt="Композиция в красном — цифровая картина" width="1024" height="1024" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:bottom center;display:block;">
         </div>
         <div class="meta">
           <div class="ttl">Композиция в красном</div>
@@ -1335,7 +1361,7 @@
         <span class="num">05 / 05</span>
         <span class="stamp"><span class="dot"></span>Sold</span>
         <div class="canvas">
-          <img src="work-04.avif" alt="Лестница" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="work-04.avif" alt="Лестница — цифровая картина" width="1024" height="1024" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="meta">
           <div class="ttl">Лестница</div>
@@ -1393,7 +1419,7 @@
     </div>
     <div class="about-grid">
       <div class="portrait reveal">
-        <img src="portrait.avif" alt="Владимир Кандинский" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;">
+        <img src="portrait.avif" alt="Владимир Кандинский — цифровой художник, BVG AI" width="1024" height="1280" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;">
         <div class="geo" style="background:linear-gradient(to top, rgba(13,13,13,0.6) 0%, transparent 50%);">
           <div class="mono mono" style="color:rgba(243,239,231,0.7);">— Self-portrait №01<br />Composition, 2026</div>
           <div class="vk">ВК<small>Vladimir Kandinsky</small></div>
@@ -1559,6 +1585,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
