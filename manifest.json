@@ -1,0 +1,15 @@
+{
+  "name": "BVG AI — Владимир Кандинский",
+  "short_name": "BVG AI",
+  "description": "Авторские цифровые картины на заказ. Постмодерн в эпоху AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3efe7",
+  "theme_color": "#e6321f",
+  "lang": "ru",
+  "icons": [
+    { "src": "favicon-16x16.png", "sizes": "16x16", "type": "image/png" },
+    { "src": "favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

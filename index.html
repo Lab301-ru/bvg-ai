@@ -10,6 +10,36 @@
 <link rel="icon" href="favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#e6321f" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="BVG AI" />
+
+<!-- SEO -->
+<link rel="canonical" href="https://v-kandinskiy.ru/" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Владимир Кандинский" />
+<meta name="keywords" content="цифровой художник, картины на заказ, AI арт, постмодернизм, BVG AI, Vladimir Kandinsky, цифровое искусство, интерьерные картины, Нью-Йорк" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://v-kandinskiy.ru/" />
+<meta property="og:title" content="BVG AI — Владимир Кандинский | Цифровой художник" />
+<meta property="og:description" content="Авторские цифровые картины на заказ. Персональные произведения и работы для интерьеров. Постмодерн в эпоху AI. Работаю по всему миру из Нью-Йорка." />
+<meta property="og:image" content="https://v-kandinskiy.ru/work-03.avif" />
+<meta property="og:site_name" content="BVG AI" />
+<meta property="og:locale" content="ru_RU" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="BVG AI — Владимир Кандинский | Цифровой художник" />
+<meta name="twitter:description" content="Авторские цифровые картины на заказ. Постмодерн в эпоху AI. Нью-Йорк." />
+<meta name="twitter:image" content="https://v-kandinskiy.ru/work-03.avif" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800;900&family=Inter+Tight:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -184,17 +214,17 @@
     display: flex;
     align-items: center;
   }
-  .nav-logo img { display: block; height: 32px; width: auto; }
+  .nav-logo img { display: block; height: 48px; width: auto; }
   @media (max-width: 880px) {
     .nav-logo { padding: 10px 22px; }
-    .nav-logo img { height: 26px; }
+    .nav-logo img { height: 39px; }
   }
 
   /* ──────────────────  HERO ────────────────── */
   .hero {
     position: relative;
     padding: 130px 0 0;
-    overflow: hidden;
+    overflow: visible;
     isolation: isolate;
   }
   .hero-grid {
@@ -1064,6 +1094,52 @@
   .reveal.in { opacity: 1; transform: translateY(0); }
   .reveal.d1 { transition-delay: 100ms; } .reveal.d2 { transition-delay: 200ms; } .reveal.d3 { transition-delay: 300ms; } .reveal.d4 { transition-delay: 400ms; }
 </style>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://v-kandinskiy.ru/#person",
+      "name": "Владимир Кандинский",
+      "alternateName": "Vladimir Kandinsky",
+      "jobTitle": "Цифровой художник",
+      "description": "Авторские цифровые картины на заказ. Постмодерн в эпоху AI. Работаю удалённо по всему миру из Нью-Йорка.",
+      "url": "https://v-kandinskiy.ru/",
+      "email": "badgik@gmail.com",
+      "sameAs": ["https://t.me/BVG95"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "New York",
+        "addressCountry": "US"
+      },
+      "brand": {
+        "@type": "Brand",
+        "name": "BVG AI"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://v-kandinskiy.ru/#website",
+      "url": "https://v-kandinskiy.ru/",
+      "name": "BVG AI — Владимир Кандинский",
+      "description": "Авторские цифровые картины на заказ. Персональные произведения и работы для интерьеров.",
+      "inLanguage": "ru",
+      "author": { "@id": "https://v-kandinskiy.ru/#person" }
+    },
+    {
+      "@type": "VisualArtwork",
+      "name": "Манифест «ДА»",
+      "creator": { "@id": "https://v-kandinskiy.ru/#person" },
+      "artMedium": "Digital, AI-generated",
+      "dateCreated": "2025",
+      "image": "https://v-kandinskiy.ru/work-03.avif"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1106,7 +1182,7 @@
       <div class="hero-name">
         <h1>
           <span class="row"><span class="ln">Владимир</span></span>
-          <span class="row"><span class="ln d2">Кандинский<span style="color:var(--red)">.</span></span></span>
+          <span class="row" style="padding-bottom:0.22em; margin-bottom:-0.22em; overflow:visible;"><span class="ln d2">Кандинский<span style="color:var(--red); position:relative; z-index:999;">.</span></span></span>
         </h1>
       </div>
 
@@ -1202,38 +1278,12 @@
     </div>
 
     <div class="works-grid">
-      <!-- 01 Composition Red on Black -->
+      <!-- 01 Манифест ДА — TOP ROW LEFT -->
       <a class="work w1 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
         <span class="num">01 / 05</span>
         <span class="stamp"><span class="dot"></span>Available</span>
-        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
-        </div>
-        <div class="meta">
-          <div class="ttl">Композиция в красном</div>
-          <div class="yr">2026 · 80×100 cm</div>
-        </div>
-      </a>
-
-      <!-- 02 Diagonal grid -->
-      <a class="work w2 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
-        <span class="num">02 / 05</span>
-        <span class="stamp"><span class="dot"></span>Available</span>
-        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
-        </div>
-        <div class="meta">
-          <div class="ttl">Сетка №7</div>
-          <div class="yr">2026 · digital print</div>
-        </div>
-      </a>
-
-      <!-- 03 Sun typography -->
-      <a class="work w3 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
-        <span class="num">03 / 05</span>
-        <span class="stamp"><span class="dot"></span>Available</span>
-        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
+        <div class="canvas">
+          <img src="work-03.avif" alt="Манифест «ДА»" loading="eager" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
         </div>
         <div class="meta">
           <div class="ttl">Манифест «ДА»</div>
@@ -1241,29 +1291,55 @@
         </div>
       </a>
 
-      <!-- 04 Stairs -->
-      <a class="work w4 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
-        <span class="num">04 / 05</span>
-        <span class="stamp"><span class="dot"></span>Sold</span>
-        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
-        </div>
-        <div class="meta">
-          <div class="ttl">Лестница</div>
-          <div class="yr">2025 · sold private</div>
-        </div>
-      </a>
-
-      <!-- 05 Vertical bars -->
-      <a class="work w5 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
-        <span class="num">05 / 05</span>
+      <!-- 02 Партитура — TOP ROW RIGHT -->
+      <a class="work w2 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">02 / 05</span>
         <span class="stamp"><span class="dot"></span>Available</span>
-        <div class="canvas" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
-          <div style="font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(243,239,231,0.35); text-align:center;">Работа<br/>скоро здесь</div>
+        <div class="canvas">
+          <img src="work-05.avif" alt="Партитура" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
         </div>
         <div class="meta">
           <div class="ttl">Партитура</div>
           <div class="yr">2025 · 60×120 cm</div>
+        </div>
+      </a>
+
+      <!-- 03 Сетка №7 — BOTTOM ROW LEFT -->
+      <a class="work w3 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">03 / 05</span>
+        <span class="stamp"><span class="dot"></span>Available</span>
+        <div class="canvas">
+          <img src="work-02.avif" alt="Сетка №7" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="meta">
+          <div class="ttl">Сетка №7</div>
+          <div class="yr">2026 · digital print</div>
+        </div>
+      </a>
+
+      <!-- 04 Композиция в красном — BOTTOM ROW CENTER -->
+      <a class="work w4 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">04 / 05</span>
+        <span class="stamp"><span class="dot"></span>Available</span>
+        <div class="canvas">
+          <img src="work-01.avif" alt="Композиция в красном" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:bottom center;display:block;">
+        </div>
+        <div class="meta">
+          <div class="ttl">Композиция в красном</div>
+          <div class="yr">2026 · 80×100 cm</div>
+        </div>
+      </a>
+
+      <!-- 05 Лестница — BOTTOM ROW RIGHT -->
+      <a class="work w5 hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">
+        <span class="num">05 / 05</span>
+        <span class="stamp"><span class="dot"></span>Sold</span>
+        <div class="canvas">
+          <img src="work-04.avif" alt="Лестница" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="meta">
+          <div class="ttl">Лестница</div>
+          <div class="yr">2025 · sold private</div>
         </div>
       </a>
 
@@ -1317,11 +1393,9 @@
     </div>
     <div class="about-grid">
       <div class="portrait reveal">
-        <div class="geo">
-          <span class="r1"></span>
-          <span class="c1"></span>
-          <span class="d1"></span>
-          <div class="mono mono">— Self-portrait №01<br />Composition, 2026</div>
+        <img src="portrait.avif" alt="Владимир Кандинский" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;">
+        <div class="geo" style="background:linear-gradient(to top, rgba(13,13,13,0.6) 0%, transparent 50%);">
+          <div class="mono mono" style="color:rgba(243,239,231,0.7);">— Self-portrait №01<br />Composition, 2026</div>
           <div class="vk">ВК<small>Vladimir Kandinsky</small></div>
         </div>
       </div>
@@ -1475,7 +1549,7 @@
     <div class="contact-line reveal d2">
       <span class="ch"><a class="hoverable" href="https://t.me/BVG95" target="_blank" rel="noopener">Telegram · канал</a></span>
       <span class="sep"></span>
-      <span class="ch"><a class="hoverable" href="mailto:vladimirbabadzanov767@gmail.com">vladimirbabadzanov767@gmail.com</a></span>
+      <span class="ch"><a class="hoverable" href="mailto:badgik@gmail.com">badgik@gmail.com</a></span>
       <span class="sep"></span>
       <span class="ch" style="font-size:clamp(14px,1.6vw,22px); color:rgba(243,239,231,0.55);">Нью-Йорк · работаю удалённо со всем миром</span>
     </div>
