@@ -820,6 +820,37 @@
     background: var(--ink);
     overflow: hidden;
     border: 1.5px solid var(--ink);
+    isolation: isolate;
+    cursor: crosshair;
+  }
+
+  /* ── Warhol pop-art hover effect ── */
+  .warhol-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    mix-blend-mode: color;
+    transition: opacity 500ms ease;
+  }
+  .portrait:hover .warhol-overlay {
+    opacity: 1;
+    animation: warhol-cycle 3s linear infinite;
+  }
+  .portrait img { transition: filter 500ms ease; }
+  .portrait:hover img {
+    filter: contrast(2.2) saturate(2.8) brightness(1.08);
+    transition: none;
+  }
+  @keyframes warhol-cycle {
+    0%   { background: #ff1493; } /* горячий розовый */
+    16%  { background: #00e5ff; } /* кислотный циан  */
+    33%  { background: #ffea00; } /* ядовитый жёлтый */
+    50%  { background: #ff6d00; } /* электро-оранж   */
+    66%  { background: #76ff03; } /* токсичный лайм  */
+    83%  { background: #d500f9; } /* кислотный фиолет*/
+    100% { background: #ff1493; }
   }
   .portrait .geo {
     position: absolute; inset: 0;
@@ -845,6 +876,7 @@
     letter-spacing: 0.22em;
     margin-top: 10px;
   }
+
 
   .about-body h3 {
     font-family: var(--display);
@@ -1120,6 +1152,24 @@
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1100ms cubic-bezier(.2,.7,.2,1), transform 1100ms cubic-bezier(.2,.7,.2,1); }
   .reveal.in { opacity: 1; transform: translateY(0); }
   .reveal.d1 { transition-delay: 100ms; } .reveal.d2 { transition-delay: 200ms; } .reveal.d3 { transition-delay: 300ms; } .reveal.d4 { transition-delay: 400ms; }
+
+  /* Logo text color switching */
+  .logo-ink { fill: #0d0d0d; transition: fill 300ms ease; }
+  .nav-logo.on-dark .logo-ink { fill: #f3efe7; }
+
+  /* Chess board responsive */
+  .chess-mobile  { display: block; }
+  .chess-desktop { display: none; }
+  @media (min-width: 881px) {
+    .chess-mobile  { display: none; }
+    .chess-desktop { display: block; }
+  }
+
+  /* Chess interactive move layers */
+  .chess-moves { opacity: 0; transition: opacity 220ms ease; pointer-events: none; }
+  .chess-moves.active { opacity: 1; }
+  .chess-piece-trigger { cursor: pointer; transition: fill 180ms ease; }
+  .chess-piece-trigger:hover { fill: rgba(243,239,231,0.07) !important; }
 </style>
 
 <!-- JSON-LD Structured Data -->
@@ -1177,8 +1227,24 @@
 <div class="cursor-dot" id="curDot" aria-hidden="true"></div>
 
 <!-- LOGO (separate from nav to preserve natural colors) -->
-<a href="/" class="nav-logo hoverable" aria-label="BVG AI — на главную" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-  <img src="logo.svg" alt="BVG AI — Владимир Кандинский" width="520" height="140">
+<a href="/" class="nav-logo hoverable" id="navLogo" aria-label="BVG AI — на главную" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" height="48" width="auto" role="img" aria-label="BVG AI — Vladimir Kandinsky" style="display:block;">
+    <title>BVG AI — Vladimir Kandinsky</title>
+    <!-- Красный квадрат + буква К — не меняются -->
+    <rect x="0" y="0" width="140" height="140" fill="#e6321f"/>
+    <g transform="translate(21 21) scale(0.98)">
+      <path d="M12 10 L35 10 L35 42 L65 10 L88 10 L50 50 L88 90 L65 90 L35 58 L35 90 L12 90 Z" fill="#f3efe7"/>
+    </g>
+    <!-- Текст — меняет цвет при тёмном фоне -->
+    <g class="logo-ink">
+      <text x="170" y="68" font-family="'Unbounded','Arial Black',sans-serif" font-size="44" font-weight="900" letter-spacing="-2">BVG AI</text>
+      <text x="170" y="98" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" letter-spacing="3" font-weight="500">VLADIMIR  KANDINSKY</text>
+      <rect x="222" y="112" width="180" height="3"/>
+    </g>
+    <!-- Красные декоративные элементы — не меняются -->
+    <rect x="170" y="112" width="48" height="3" fill="#e6321f"/>
+    <circle cx="412" cy="113.5" r="4" fill="#e6321f"/>
+  </svg>
 </a>
 
 <!-- NAV -->
@@ -1426,6 +1492,7 @@
     <div class="about-grid">
       <div class="portrait reveal">
         <img src="portrait.avif" alt="Владимир Кандинский — цифровой художник, BVG AI" width="1024" height="1280" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;">
+        <div class="warhol-overlay" aria-hidden="true"></div>
         <div class="geo" style="background:linear-gradient(to top, rgba(13,13,13,0.6) 0%, transparent 50%);">
           <div class="mono mono" style="color:rgba(243,239,231,0.7);">— Self-portrait №01<br />Composition, 2026</div>
           <div class="vk">ВК<small>Vladimir Kandinsky</small></div>
@@ -1535,28 +1602,161 @@
     </div>
     <div style="display:grid; grid-template-columns:1fr 2fr; gap:60px; align-items:start;">
       <div class="reveal" style="position:relative;">
-        <svg viewBox="0 0 240 240" width="100%" style="max-width:240px; border:1.5px solid rgba(243,239,231,0.2);">
-          <rect width="240" height="240" fill="#f3efe7"/>
-          <g fill="#0d0d0d">
-            <rect x="0"   y="0"   width="60" height="60"/>
-            <rect x="120" y="0"   width="60" height="60"/>
-            <rect x="60"  y="60"  width="60" height="60"/>
-            <rect x="180" y="60"  width="60" height="60"/>
-            <rect x="0"   y="120" width="60" height="60"/>
-            <rect x="120" y="120" width="60" height="60"/>
-            <rect x="60"  y="180" width="60" height="60"/>
-            <rect x="180" y="180" width="60" height="60"/>
-          </g>
-          <!-- Чёрный Король загнан в угол h8 -->
-          <text x="210" y="46" text-anchor="middle" font-family="serif" font-size="44" fill="#0d0d0d">♚</text>
-          <!-- Белый Ферзь — шах с диагонали, мат -->
-          <text x="150" y="106" text-anchor="middle" font-family="serif" font-size="44" fill="#e6321f">♛</text>
-          <!-- Белый Король защищает Ферзя -->
-          <text x="90" y="106" text-anchor="middle" font-family="serif" font-size="44" fill="#f3efe7">♔</text>
-          <!-- МАТ — крест -->
-          <text x="210" y="52" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#e6321f" dy="14" letter-spacing="1">✕</text>
-        </svg>
-        <div class="mono" style="margin-top:16px; color:rgba(243,239,231,0.45);">Qg7# &nbsp;·&nbsp; мат</div>
+
+        <!-- МОБИЛЬНАЯ ДОСКА (4×4) -->
+        <div class="chess-mobile">
+          <svg viewBox="0 0 240 240" width="100%" style="max-width:240px; border:1.5px solid rgba(243,239,231,0.2);">
+            <rect width="240" height="240" fill="#f3efe7"/>
+            <g fill="#0d0d0d">
+              <rect x="0"   y="0"   width="60" height="60"/>
+              <rect x="120" y="0"   width="60" height="60"/>
+              <rect x="60"  y="60"  width="60" height="60"/>
+              <rect x="180" y="60"  width="60" height="60"/>
+              <rect x="0"   y="120" width="60" height="60"/>
+              <rect x="120" y="120" width="60" height="60"/>
+              <rect x="60"  y="180" width="60" height="60"/>
+              <rect x="180" y="180" width="60" height="60"/>
+            </g>
+            <rect x="180" y="0" width="60" height="60" fill="#e6321f" opacity="0.25"/>
+            <text x="210" y="46"  text-anchor="middle" font-family="serif" font-size="44" fill="#0d0d0d">♚</text>
+            <text x="150" y="106" text-anchor="middle" font-family="serif" font-size="44" fill="#e6321f">♛</text>
+            <text x="90"  y="106" text-anchor="middle" font-family="serif" font-size="44" fill="#f3efe7">♔</text>
+          </svg>
+          <div class="mono" style="margin-top:16px; color:rgba(243,239,231,0.45);">Qg7# · мат</div>
+        </div>
+
+        <!-- ДЕСКТОПНАЯ ДОСКА (8×8) — Interactive -->
+        <div class="chess-desktop">
+          <svg id="chess-svg" viewBox="0 0 356 360" width="100%" style="max-width:420px;">
+            <!-- Светлый фон всей доски -->
+            <rect x="28" y="4" width="320" height="320" fill="#f3efe7"/>
+
+            <!-- Тёмные клетки -->
+            <rect x="68"  y="4"   width="40" height="40" fill="#0d0d0d"/>
+            <rect x="148" y="4"   width="40" height="40" fill="#0d0d0d"/>
+            <rect x="228" y="4"   width="40" height="40" fill="#0d0d0d"/>
+            <!-- h8 — клетка мата, красный акцент -->
+            <rect x="308" y="4"   width="40" height="40" fill="#e6321f" opacity="0.55"/>
+            <rect x="28"  y="44"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="108" y="44"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="188" y="44"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="268" y="44"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="68"  y="84"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="148" y="84"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="228" y="84"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="308" y="84"  width="40" height="40" fill="#0d0d0d"/>
+            <rect x="28"  y="124" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="108" y="124" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="188" y="124" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="268" y="124" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="68"  y="164" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="148" y="164" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="228" y="164" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="308" y="164" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="28"  y="204" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="108" y="204" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="188" y="204" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="268" y="204" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="68"  y="244" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="148" y="244" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="228" y="244" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="308" y="244" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="28"  y="284" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="108" y="284" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="188" y="284" width="40" height="40" fill="#0d0d0d"/>
+            <rect x="268" y="284" width="40" height="40" fill="#0d0d0d"/>
+
+            <!-- Рамка доски -->
+            <rect x="28" y="4" width="320" height="320" fill="none" stroke="rgba(243,239,231,0.25)" stroke-width="1.5"/>
+
+            <!-- Ранги 8→1 -->
+            <g font-family="'JetBrains Mono',monospace" font-size="11" fill="rgba(243,239,231,0.5)" text-anchor="middle">
+              <text x="16" y="28">8</text><text x="16" y="68">7</text><text x="16" y="108">6</text>
+              <text x="16" y="148">5</text><text x="16" y="188">4</text><text x="16" y="228">3</text>
+              <text x="16" y="268">2</text><text x="16" y="308">1</text>
+            </g>
+            <!-- Файлы a→h -->
+            <g font-family="'JetBrains Mono',monospace" font-size="11" fill="rgba(243,239,231,0.5)" text-anchor="middle">
+              <text x="48" y="344">a</text><text x="88" y="344">b</text><text x="128" y="344">c</text>
+              <text x="168" y="344">d</text><text x="208" y="344">e</text><text x="248" y="344">f</text>
+              <text x="288" y="344">g</text><text x="328" y="344">h</text>
+            </g>
+
+            <!-- ══ СЛОЙ: ТРАЕКТОРИИ ФЕРЗЯ ♛ g7 (появляется по наведению) ══ -->
+            <!-- cx=48+col*40, cy=24+row*40 | g=col6 row1 → (288,64) -->
+            <g id="wq-moves" class="chess-moves">
+              <!-- Лучи (пунктир) -->
+              <line x1="288" y1="64" x2="288" y2="24"  stroke="#e6321f" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.7"/><!-- N  →g8 -->
+              <line x1="288" y1="64" x2="288" y2="304" stroke="#e6321f" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.7"/><!-- S  →g1 -->
+              <line x1="288" y1="64" x2="328" y2="64"  stroke="#e6321f" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.7"/><!-- E  →h7 -->
+              <line x1="288" y1="64" x2="48"  y2="64"  stroke="#e6321f" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.7"/><!-- W  →a7 -->
+              <line x1="288" y1="64" x2="328" y2="24"  stroke="#e6321f" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.7"/><!-- NE →h8 (взятие) -->
+              <line x1="288" y1="64" x2="248" y2="24"  stroke="#e6321f" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.7"/><!-- NW →f8 -->
+              <line x1="288" y1="64" x2="328" y2="104" stroke="#e6321f" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.7"/><!-- SE →h6 -->
+              <!-- SW заблокирован Белым Королём на f6 — луч не рисуем -->
+              <!-- Точки на доступных клетках -->
+              <circle cx="288" cy="24"  r="5" fill="#e6321f" opacity="0.8"/><!-- g8 N -->
+              <circle cx="288" cy="104" r="5" fill="#e6321f" opacity="0.8"/><!-- g6 S -->
+              <circle cx="288" cy="144" r="5" fill="#e6321f" opacity="0.8"/><!-- g5 -->
+              <circle cx="288" cy="184" r="5" fill="#e6321f" opacity="0.8"/><!-- g4 -->
+              <circle cx="288" cy="224" r="5" fill="#e6321f" opacity="0.8"/><!-- g3 -->
+              <circle cx="288" cy="264" r="5" fill="#e6321f" opacity="0.8"/><!-- g2 -->
+              <circle cx="288" cy="304" r="5" fill="#e6321f" opacity="0.8"/><!-- g1 -->
+              <circle cx="328" cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- h7 E -->
+              <circle cx="248" cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- f7 W -->
+              <circle cx="208" cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- e7 -->
+              <circle cx="168" cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- d7 -->
+              <circle cx="128" cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- c7 -->
+              <circle cx="88"  cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- b7 -->
+              <circle cx="48"  cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- a7 -->
+              <circle cx="248" cy="24"  r="5" fill="#e6321f" opacity="0.8"/><!-- f8 NW -->
+              <circle cx="328" cy="104" r="5" fill="#e6321f" opacity="0.8"/><!-- h6 SE -->
+              <!-- NE: h8 — взятие Чёрного Короля, двойной маркер -->
+              <circle cx="328" cy="24" r="11" fill="none" stroke="#e6321f" stroke-width="2" opacity="0.9"/>
+              <circle cx="328" cy="24" r="4"  fill="#e6321f" opacity="1"/>
+            </g>
+
+            <!-- ══ СЛОЙ: ТРАЕКТОРИИ БЕЛОГО КОРОЛЯ ♔ f6 ══ -->
+            <!-- f6 = col5 row2 → (248,104) -->
+            <g id="wk-moves" class="chess-moves">
+              <circle cx="208" cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- e7 -->
+              <circle cx="248" cy="64"  r="5" fill="#e6321f" opacity="0.8"/><!-- f7 -->
+              <!-- g7 = свой Ферзь — заблокировано, не показываем -->
+              <circle cx="208" cy="104" r="5" fill="#e6321f" opacity="0.8"/><!-- e6 -->
+              <circle cx="288" cy="104" r="5" fill="#e6321f" opacity="0.8"/><!-- g6 -->
+              <circle cx="208" cy="144" r="5" fill="#e6321f" opacity="0.8"/><!-- e5 -->
+              <circle cx="248" cy="144" r="5" fill="#e6321f" opacity="0.8"/><!-- f5 -->
+              <circle cx="288" cy="144" r="5" fill="#e6321f" opacity="0.8"/><!-- g5 -->
+            </g>
+
+            <!-- ══ СЛОЙ: ТРАЕКТОРИИ ЧЁРНОГО КОРОЛЯ ♚ h8 — все ходы под ударом ══ -->
+            <!-- h8 = col7 row0 → (328,24) -->
+            <g id="bk-moves" class="chess-moves">
+              <!-- g8 (288,24) — под ударом Ферзя (вертикаль g) -->
+              <circle cx="288" cy="24" r="9" fill="rgba(230,50,31,0.1)" stroke="#e6321f" stroke-width="1.5" stroke-dasharray="2 3"/>
+              <!-- h7 (328,64) — под ударом Ферзя (вертикаль и горизонталь) -->
+              <circle cx="328" cy="64" r="9" fill="rgba(230,50,31,0.1)" stroke="#e6321f" stroke-width="1.5" stroke-dasharray="2 3"/>
+              <!-- g7 (288,64) — Ферзь здесь, взятие под защитой Белого Короля -->
+              <circle cx="288" cy="64" r="9" fill="rgba(230,50,31,0.1)" stroke="#e6321f" stroke-width="1.5" stroke-dasharray="2 3"/>
+            </g>
+
+            <!-- ФИГУРЫ — рендерятся поверх слоёв траекторий -->
+            <!-- ♚ Чёрный Король h8 -->
+            <circle cx="328" cy="24" r="17" fill="rgba(240,217,181,0.3)"/>
+            <text x="328" y="37" text-anchor="middle" font-family="serif" font-size="30" fill="#1a0f00">♚</text>
+            <!-- ♛ Белый Ферзь g7 -->
+            <text x="288" y="77" text-anchor="middle" font-family="serif" font-size="30" fill="#f3efe7">♛</text>
+            <!-- ♔ Белый Король f6 -->
+            <text x="248" y="117" text-anchor="middle" font-family="serif" font-size="30" fill="#f3efe7">♔</text>
+
+            <!-- НЕВИДИМЫЕ ТРИГГЕРЫ ХОВЕРА (поверх всего) -->
+            <rect id="trigger-bk" x="308" y="4"  width="40" height="40" class="chess-piece-trigger" fill="rgba(243,239,231,0.001)" rx="3"/>
+            <rect id="trigger-wq" x="268" y="44" width="40" height="40" class="chess-piece-trigger" fill="rgba(243,239,231,0.001)" rx="3"/>
+            <rect id="trigger-wk" x="228" y="84" width="40" height="40" class="chess-piece-trigger" fill="rgba(243,239,231,0.001)" rx="3"/>
+          </svg>
+          <div class="mono" style="margin-top:14px; color:rgba(243,239,231,0.45); letter-spacing:0.15em;">Qg7# · мат · наведи на фигуру</div>
+        </div>
+
       </div>
       <div class="reveal d1">
         <h3 style="font-family:var(--display); font-weight:800; font-size:clamp(36px,4.6vw,64px); line-height:0.95; letter-spacing:-0.035em; text-transform:uppercase; margin-bottom:32px;">
@@ -1654,6 +1854,36 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ─── CHESS INTERACTIVE MOVE LAYERS ───
+  [
+    { t: 'trigger-bk', m: 'bk-moves' },
+    { t: 'trigger-wq', m: 'wq-moves' },
+    { t: 'trigger-wk', m: 'wk-moves' },
+  ].forEach(({ t, m }) => {
+    const trigger = document.getElementById(t);
+    const layer   = document.getElementById(m);
+    if (!trigger || !layer) return;
+    trigger.addEventListener('mouseenter', () => layer.classList.add('active'));
+    trigger.addEventListener('mouseleave', () => layer.classList.remove('active'));
+  });
+
+  // ─── LOGO COLOR ON DARK BG ───
+  const navLogo   = document.getElementById('navLogo');
+  const darkSections = document.querySelectorAll('.ticker, .pillars, .chess, .contact, footer');
+
+  const logoObserver = new IntersectionObserver((entries) => {
+    // считаем сколько тёмных секций пересекает верхнюю зону экрана
+    let darkVisible = 0;
+    darkSections.forEach(sec => {
+      const r = sec.getBoundingClientRect();
+      // логотип — высота ~60px сверху
+      if (r.top < 70 && r.bottom > 0) darkVisible++;
+    });
+    navLogo.classList.toggle('on-dark', darkVisible > 0);
+  }, { threshold: [0, 0.01, 0.1, 0.5, 0.9, 1], rootMargin: '-0px 0px -90% 0px' });
+
+  darkSections.forEach(sec => logoObserver.observe(sec));
 </script>
 
 </body>
