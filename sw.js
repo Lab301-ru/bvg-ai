@@ -1,5 +1,5 @@
 // BVG AI — minimal SW for instant repeat-load
-const VERSION = 'bvg-v1';
+const VERSION = 'bvg-v2';
 const PRECACHE = [
   '/',
   '/index.html',
